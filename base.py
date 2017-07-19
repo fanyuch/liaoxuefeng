@@ -2,6 +2,7 @@
 import chardet
 import random
 import os
+from collections import Iterator
 
 print('中文')
 print(ord('中'))
@@ -158,5 +159,9 @@ def yhTriangle(n):
         l = [1] + [l[i] + l[i + 1] for i in range(len(l) - 1)] + [1]
         index += 1
 
-for x in yhTriangle(10):
+for x in yhTriangle(10):  #加上yield的函数变成生成器了，所以也是可以迭代的对象
     print(x)
+
+
+#迭代器
+print(isinstance([], Iterator))
