@@ -165,3 +165,76 @@ for x in yhTriangle(10):  #加上yield的函数变成生成器了，所以也是
 
 #迭代器
 print(isinstance([], Iterator))
+
+m_list = [x for x in range(1, 101)]
+
+p = sum(m_list)
+print(m_list)
+from functools import reduce
+def prod(x1, x2):
+    return x1 + x2
+p = reduce(prod, m_list)
+print(p)
+#组装
+def fun(s1, s2):
+    return s1*10 + s2
+
+print(reduce(lambda x, y:x*10 + y, [1, 3, 5, 7, 9]))
+
+#str 转换为 int
+def char2int(s):
+    return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[s]
+map(char2int, [1, 3, 5, 7, 9])
+
+
+#生成数字列表
+m_list = []
+for x in map(str, [x for x in range(1, 10)]):
+    m_list.append(x)
+m_list[5] = '.'
+
+#利用map和reduce编写一个str2float函数，把字符串'123.456'转换成浮点数123.456：
+CHAR_TO_FLOAT = {
+    '0': 0,
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+    '.': -1
+}
+
+def str2float(s):
+    nums = map(lambda ch: CHAR_TO_FLOAT[ch], s)
+    point = 0
+    def to_float(f, n):
+        nonlocal point
+        if n == -1:
+            point = 1
+            return f
+        if point == 0:
+            return f * 10 + n
+        else:
+            point = point * 10
+            return f + n / point
+    return reduce(to_float, nums, 0.0)
+
+print(str2float('12300.456'))
+# for x in m_list:
+#      print(x + ' :type of x is %s'%type(x))
+
+#filter   过滤掉奇数
+print(list(filter(lambda x: x % 2 == 0, [x for x in range(20)])))
+
+#filter
+print(list(filter(lambda x : x % 2 > 0, [x for x in range(10)])))
+pass
+
+#求所有素数，无限序列
+def geneList():
+    n = 1
+    
