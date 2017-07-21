@@ -17,3 +17,4 @@ def is_plaindrom(n):
 
 for y in filter(is_plaindrom, [x for x in range(1000)]):
     print(y)
+

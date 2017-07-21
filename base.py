@@ -235,6 +235,61 @@ print(list(filter(lambda x : x % 2 > 0, [x for x in range(10)])))
 pass
 
 #求所有素数，无限序列
-def geneList():
-    n = 1
-    
+# def geneList():
+#     n = 1
+#     while True:
+#         n += 2
+#         yield n
+#
+# def myFilter(n):
+#     return lambda x : x % n > 0
+#
+# def primeFilter():
+#     yield 2
+#     mGen = geneList()
+#     while True:
+#         n = next(mGen)
+#         yield n
+#         mGen = filter(myFilter(n), mGen)
+#
+#
+# for x in primeFilter():
+#     if x <1000:
+#         print(x)
+#     else:
+#         break
+
+
+#筛选回数
+def is_plaindrom(n):
+    mList = list()
+    while n > 0:
+        tmp = n % 10
+        mList.append(tmp)
+        n = n // 10
+    n = 0
+    while n <len(mList) / 2:
+        if mList[n] != mList[len(mList) - n -1]:
+            return False
+        else:
+            n += 1
+    return True
+
+
+
+for y in filter(is_plaindrom, [x for x in range(1000)]):
+    print(y)
+
+
+#sorted()
+L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
+for x in sorted(L, key=str.lower):
+    print(x)
+
+
+
+
+
+
+
+
