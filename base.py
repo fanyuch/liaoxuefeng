@@ -281,11 +281,110 @@ for y in filter(is_plaindrom, [x for x in range(1000)]):
     print(y)
 
 
-#sorted()
+#sorted()     #自定义函数可以，匿名函数也可以
 L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
-for x in sorted(L, key=str.lower):
-    print(x)
 
+print(sorted(L, key=lambda t: t[1]))  #key函数的执行流程是：先把key应用再列表上，再把排序应用再列表上
+
+def Keyfun(L):
+    return L[1]
+
+print(sorted(L, key=Keyfun))
+
+
+#闭包，要理解闭包，只需要单步跟进
+
+# def count():
+#     mList = []
+#     for i in range(4):
+#         def fun():
+#             return i*i
+#         mList.append(fun)
+#     return mList
+#
+# f1, f2, f3, f4 = count()
+#
+# f1()
+# f2()
+# f3()
+# f4()
+
+
+#闭包  的环境变量，自由变量
+s = 'string in blobal'
+num = 99
+
+def numFunc(a, b):
+    num = 100
+    num2 = 200
+    num3 = 300
+    print('print s in numbunc', s)
+
+    def addfunc(a, b):
+        s = 'string in addfunc'
+        x = num
+        y = num3
+        print('print s in addFunc', s)
+
+    return addfunc
+
+
+
+print(dir(numFunc))
+print('numFunc', numFunc.__closure__)
+print('addfunc', numFunc(1, 3).__closure__)
+for x in numFunc(1, 3).__closure__:
+    print(x)
+    pass
+
+
+
+
+
+# def line_conf():
+#     def line(x):
+#         return 2 * x + 1
+#
+#     print(line(5))  # within the scope
+#
+#
+# line_conf()
+# print(line(5))  # out of the scope
+
+def line_conf():
+    b = 15
+
+    def line(x):
+        return 2 * x + b
+
+    return line  # return a function object
+
+
+b = 5
+my_line = line_conf()
+print(my_line.__closure__[0].cell_contents)
+print(type(my_line.__closure__))
+pass
+
+
+def count():
+    fs = []
+    for i in range(1, 4):
+        def f():
+             return i*i
+        fs.append(f)
+    return fs
+
+f1, f2, f3 = count()
+
+print(type(f1.__closure__))
+pass
+
+#元组也可以迭代
+x = tuple([1, 2, 3])
+
+for y in x:
+    print(y)
 
 
 
