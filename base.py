@@ -388,6 +388,89 @@ for y in x:
 
 
 
+#装饰器
+def log(func):
+    def wrapper():
+        print('call %s():' % func.__name__)
+        return func()                 #返回函数名字和返回函数调用 是不一样的
+
+    return wrapper
+
+@log
+def m_fun():
+    print('hello world')
+
+m_fun()
+
+# class student(object):
+#     __slots__ = ('name', 'sex')
+#
+# s = student()
+# s.name = 'fan'
+# s.sex = 'male'
+# s.score = 0
+
+class student(object):
+    @property
+    def birth(self):
+        return self._birth
+
+    @birth.setter                   #setter是  porperty的内建函数
+    def birth(self, value):
+        self._birth = value
+
+    @property
+    def age(self):
+        return 2015 - self._birth
+
+
+s = student()
+# s.birth = 10
+# print(s.birth)
+
+
+#@property 的引用
+class Screen(object):
+
+    @property
+    def width(self):
+        return self._width
+
+    @width.setter
+    def width(self, value):
+        self._width = value
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    def height(self, value):
+        self._height = value
+
+    @property
+    def resulation(self):
+        return self._height * self._width
+
+    @resulation.getter
+    def resulation(self):
+        return self._height * self._width
+
+sc = Screen()
+sc.height = 9
+print(sc.height)
+
+sc.width = 10
+print(sc.width)
+
+print(sc.resulation)
+
+
+
+
+
+
+
 
 
 
