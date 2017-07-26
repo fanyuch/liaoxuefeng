@@ -465,7 +465,115 @@ print(sc.width)
 
 print(sc.resulation)
 
+#动态创建类
 
+def fun(self, name = 'world'):
+    print('class student')
+    pass
+
+classS = type('Student', (object, ), dict(student = fun))
+
+s = classS()
+s.student()
+
+#异常
+try:
+    f = open('C:\\Users\\fyc\\Desktop\\json.txt', 'r', encoding='gbk')
+    print(f.read())
+except Exception as e:
+    print(e)
+finally:
+    f.close()
+    print('\n')
+
+with open("C:\\Users\\fyc\\Desktop\\json.txt") as f:
+    print(f.read())
+
+#IO
+from io import StringIO, BytesIO
+f = StringIO("helo")
+print(f.getvalue())
+f = BytesIO()
+f.write('中文'.encode('utf-8'))
+print(f.getvalue())
+
+import os
+print(os.name)
+# print(os.uname())
+
+#json dumps的用法
+import json
+d = dict({'name':'fanyuchen'})
+m_str = json.dumps(d)
+
+
+#json dump的用法
+json.dump({'name':'fanyuchen'}, fp=open('C:\\Users\\fyc\\Desktop\\json1.txt', 'w'))
+with open('C:\\Users\\fyc\\Desktop\\json1.txt', 'r') as f:
+    print(f.read())
+
+strIo = StringIO()
+json.dump({'name':'fanyuchen'}, strIo)
+print(strIo.getvalue())
+
+# bytIo = BytesIO()
+# json.dump({'name':'fanyuchen'}, bytIo)
+# print(bytIo.read())
+
+print('load', json.loads(m_str))
+
+#process
+
+from multiprocessing import Process
+import os
+
+def run_proc(name):
+    print('run child process %s (%s)...' %(name, os.getpid()))
+    # os.wait()
+
+# if __name__ == '__main__':
+#     print('parent process %s' % os.getpid())
+#     p = Process(target=run_proc, args=('test',))
+#     print('child process will start')
+#     p.start()
+#     p.join()
+#     print('child process end')
+
+
+from multiprocessing import Pool
+import time, random
+
+def long_time_task(name):
+    print('run task %s (%s)...'%(name, os.getpid()))
+    start = time.time()
+    time.sleep(random.random() * 3)
+    end = time.time()
+    print('task %s runs %0.2f seconds'%(name, (end-start)))
+
+if __name__ == '__main__':
+    print('parent process %s'% os.getpid())
+    p = Pool(4)
+    for i in range(5):
+        p.apply_async(long_time_task, args = (i,))
+    print('waiting for all subprocesses done...')
+    p.close()
+    p.join()
+    print('all subprocesses done')
+
+
+
+
+import subprocess
+print('$ nslookup www.python.org')
+
+r = subprocess.call(['nslookup', 'www.python.org'])
+
+print('exit code', r)
+
+#正则，特殊字符不起占位的作用，4种限定符
+import re
+m = re.match(r'^(\d{3})-(\d{3,8})$', '010-123456')
+print(m)
 
 
 
